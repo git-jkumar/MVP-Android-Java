@@ -1,11 +1,13 @@
 package onsterlabs.android.kit.login;
 
 import android.content.Context;
+import android.content.Intent;
 
 import onsterlabs.android.kit.BaseViewModel;
 import onsterlabs.android.kit.login.APIs.LoginAPIListener;
 import onsterlabs.android.kit.login.model.LoginRequest;
 import onsterlabs.android.kit.login.model.LoginResponse;
+import onsterlabs.android.kit.registration.RegisterActivity;
 
 /**
  * Created by Salil Kaul on 19/10/16.
@@ -22,6 +24,10 @@ public class LoginViewModel extends BaseViewModel {
 
     public void onSubmit(LoginRequest loginRequest) {
         doLogin(loginRequest.getArnCode(),loginRequest.getGrant_type(),loginRequest.getPassword());
+    }
+
+    public void onRegister() {
+        context.startActivity(new Intent(context, RegisterActivity.class));
     }
 
     private void doLogin(String arn,String grantType,String password){

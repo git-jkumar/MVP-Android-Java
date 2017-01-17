@@ -23,14 +23,15 @@ public class LoginActivity extends BaseActivity implements OnProgressListener, S
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BaseApplication baseApplication = ((BaseApplication) getApplication());
-        baseApplication.setSessionTimeoutListener(this);
         loginActivityBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         loginRequest = new LoginRequest();
         loginViewModel = new LoginViewModel(this);
         loginViewModel.setOnProgressListener(this);
         loginActivityBinding.setHandler(loginViewModel);
         loginActivityBinding.setModel(loginRequest);
+
+        BaseApplication baseApplication = ((BaseApplication) getApplication());
+        baseApplication.setSessionTimeoutListener(this);
     }
 
     @Override
