@@ -30,7 +30,7 @@ public class BaseApplication extends Application {
     public void initHeaders(){
         mRequestHeaderMap.put("app-type", "M");
         mRequestHeaderMap.put("Content-Type","application/json");
-        mRequestHeaderMap.put("Authorization","Basic ZGlzdHJpYnV0b3ItY2xpZW50OnNlY3JldA==");
+        mRequestHeaderMap.put("Authorization","Basic xxxxxxxxxxxxxxxxxxxxxxxx");
     }
 
     public void updateAuthHeader(String authHeader){

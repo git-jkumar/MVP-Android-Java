@@ -5,5 +5,5 @@ package onsterlabs.android.kit;
  */
 
 public class Constants {
-    public static final String BASE_URL = "http://hdfc-dev-kong.tothenew.com/distributor/";
+    public static final String BASE_URL = "http://xxxxxx.tothenew.com/xxxxxx/";
 }
