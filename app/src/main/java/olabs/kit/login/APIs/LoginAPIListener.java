@@ -1,0 +1,54 @@
+package olabs.kit.login.APIs;
+
+
+import olabs.kit.APIManager;
+import olabs.kit.login.LoginViewModel;
+import olabs.kit.login.model.LoginResponse;
+import onsterlabs.network.RetroError;
+import onsterlabs.network.rxnetwork.APISubscriber;
+import onsterlabs.network.rxnetwork.RXEventBus;
+import rx.android.schedulers.AndroidSchedulers;
+
+/**
+ * Created by ttnd on 25/11/16.
+ */
+
+public class LoginAPIListener extends APIManager {
+
+    protected LoginViewModel mLoginViewModel;
+    protected ILoginAPI mAlbumAPI;
+
+    public LoginAPIListener(LoginViewModel loginViewModel) {
+        super();
+        mAlbumAPI = (ILoginAPI) getServiceClient(ILoginAPI.class);
+        this.mLoginViewModel = loginViewModel;
+
+    }
+
+    public void doLogin(String arn,String grantType,String password) {
+        mAlbumAPI.doLogin(arn, grantType, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(defaultSubscribeScheduler())
+                .subscribe(new APISubscriber<LoginResponse>());
+
+    }
+
+    @Override
+    public void onError(RetroError retroError) {
+        mLoginViewModel.onError(retroError);
+    }
+
+    @Override
+    public void onSuccess(Object o) {
+        if (o instanceof LoginResponse) {
+            mLoginViewModel.onLoginSuccess((LoginResponse) o);
+        }
+    }
+
+    @Override
+    public void subscribe() {
+        RXEventBus.getInstance().register(RetroError.class, this);
+        RXEventBus.getInstance().register(LoginResponse.class, this);
+    }
+
+}

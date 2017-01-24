@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
     <data>
-        <variable name="handler" type="onsterlabs.android.kit.login.LoginViewModel"></variable>
-        <variable name="model" type="onsterlabs.android.kit.login.model.LoginRequest"></variable>
+        <variable name="handler" type="olabs.kit.login.LoginViewModel"></variable>
+        <variable name="model" type="olabs.kit.login.model.LoginRequest"></variable>
         <variable name="VIEW" type="android.view.View"></variable>
     </data>
 

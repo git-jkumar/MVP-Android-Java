@@ -4,8 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:bind="http://schemas.android.com/tools">
     <data>
-        <variable name="handler" type="onsterlabs.android.kit.registration.RegisterViewModel"></variable>
-        <variable name="model" type="onsterlabs.android.kit.registration.model.RegistrationRequest"></variable>
+        <variable name="handler" type="olabs.kit.registration.RegisterViewModel"></variable>
+        <variable name="model" type="olabs.kit.registration.model.RegistrationRequest"></variable>
     </data>
 
     <RelativeLayout
