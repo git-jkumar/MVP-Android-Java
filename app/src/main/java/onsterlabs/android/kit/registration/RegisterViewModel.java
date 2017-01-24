@@ -19,7 +19,7 @@ public class RegisterViewModel extends BaseViewModel {
 
     public RegisterViewModel(Context context) {
         super(context);
-        mRegistrationAPIListener = new RegistrationAPIListener(application,this);
+        mRegistrationAPIListener = new RegistrationAPIListener(this);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class RegisterViewModel extends BaseViewModel {
 
     @Override
     public void onPause() {
-        mRegistrationAPIListener.unsubscribe();
+//        mRegistrationAPIListener.unsubscribe();
     }
 
 
@@ -55,7 +55,7 @@ public class RegisterViewModel extends BaseViewModel {
 
     @Override
     public void onDestroy() {
-        mRegistrationAPIListener.unsubscribe();;
+//        mRegistrationAPIListener.unsubscribe();;
         mRegistrationAPIListener = null;
     }
 

@@ -2,12 +2,11 @@ package onsterlabs.android.kit.login.APIs;
 
 
 import onsterlabs.android.kit.APIManager;
-import onsterlabs.android.kit.BaseApplication;
 import onsterlabs.android.kit.login.LoginViewModel;
 import onsterlabs.android.kit.login.model.LoginResponse;
+import onsterlabs.network.RetroError;
 import onsterlabs.network.rxnetwork.APISubscriber;
 import onsterlabs.network.rxnetwork.RXEventBus;
-import onsterlabs.network.rxnetwork.RetroError;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -19,9 +18,9 @@ public class LoginAPIListener extends APIManager {
     protected LoginViewModel mLoginViewModel;
     protected ILoginAPI mAlbumAPI;
 
-    public LoginAPIListener(BaseApplication application, LoginViewModel loginViewModel) {
-        super(application);
-        mAlbumAPI = application.getServiceClient(ILoginAPI.class);
+    public LoginAPIListener(LoginViewModel loginViewModel) {
+        super();
+        mAlbumAPI = (ILoginAPI) getServiceClient(ILoginAPI.class);
         this.mLoginViewModel = loginViewModel;
 
     }
@@ -29,7 +28,7 @@ public class LoginAPIListener extends APIManager {
     public void doLogin(String arn,String grantType,String password) {
         mAlbumAPI.doLogin(arn, grantType, password)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(application.defaultSubscribeScheduler())
+                .subscribeOn(defaultSubscribeScheduler())
                 .subscribe(new APISubscriber<LoginResponse>());
 
     }
@@ -48,8 +47,8 @@ public class LoginAPIListener extends APIManager {
 
     @Override
     public void subscribe() {
-        subscriptions.add(RXEventBus.getInstance().register(RetroError.class, this));
-        subscriptions.add(RXEventBus.getInstance().register(LoginResponse.class, this));
+        RXEventBus.getInstance().register(RetroError.class, this);
+        RXEventBus.getInstance().register(LoginResponse.class, this);
     }
 
 }

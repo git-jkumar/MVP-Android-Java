@@ -1,72 +1,51 @@
 package onsterlabs.android.kit;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import onsterlabs.network.rxnetwork.RetroError;
-import rx.Subscription;
-import rx.functions.Action1;
+import onsterlabs.network.NetworkServiceFactory;
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by ttnd on 25/11/16.
  */
 
-public abstract class APIManager<T> implements Action1<T> {
-    protected ArrayList<Subscription> subscriptions = new ArrayList<>();
-    public BaseApplication application;
-    HashMap<String, String> mRequestHeaderMap = new HashMap<>();
-    private boolean isHeaderUpdate = false;
+public abstract class APIManager<T> extends RxResponseHandler<T> {
 
-    public APIManager(BaseApplication application) {
+    private HashMap<String, String> mRequestHeaderMap = new HashMap<>();
+    private Scheduler defaultSubscribeScheduler;
+
+    public APIManager() {
         subscriptions.clear();
-        this.application = application;
+        initHeaders();
     }
 
-    @Override
-    public void call(T t) {
-        if (t instanceof RetroError) {
-            RetroError retroError = (RetroError) t;
-            if(retroError.getKind() == RetroError.Kind.HTTP){
-                switch (retroError.getHttpErrorCode()){
-                    case 401:
-                        unsubscribe();
-                        application.onSessionTimeout("Your session has expired...please login again");
-                        break;
-                    case 500:
-                        retroError.setErrorMessage("Something went wrong...try after sometime.");
-                        break;
-                    default:
-                        retroError.setErrorMessage("Something went wrong...try after sometime.");
-                        break;
-                }
-            }
-            else if(retroError.getKind() == RetroError.Kind.NETWORK){
-                retroError.setErrorMessage("No internet connection.");
-            }if(retroError.getKind() == RetroError.Kind.UNEXPECTED){
-                retroError.setErrorMessage("Unexpected error...try after sometime.");
-            }
-
-            onError(retroError);
+    public <S> S getServiceClient(Class<S> serviceClass) {
+        if (Constants.IS_HEADER_UPDATE) {
+            Constants.IS_HEADER_UPDATE = false;
+            updateHeaders();
+            return NetworkServiceFactory.getNewInstance(Constants.BASE_URL, serviceClass, mRequestHeaderMap);
         }
-        else
-            onSuccess(t);
+        return NetworkServiceFactory.getInstance(Constants.BASE_URL, serviceClass, mRequestHeaderMap);
     }
 
-    public abstract void onError(RetroError errorMessage);
+    private void initHeaders() {
+        mRequestHeaderMap.put("app-type", "M");
+        mRequestHeaderMap.put("Content-Type", "application/json");
+        mRequestHeaderMap.put("Authorization", Constants.BASIC_AUTHORIZATION);
+    }
 
-    public abstract void onSuccess(T o);
+    private void updateHeaders() {
+        mRequestHeaderMap.put("app-type", "M");
+        mRequestHeaderMap.put("Content-Type", "application/json");
+        mRequestHeaderMap.put("Authorization", Constants.APP_AUTHORIZATION);
+    }
 
-    public void unsubscribe(){
-        for(int i = 0;i<subscriptions.size();i++){
-            subscriptions.get(i).unsubscribe();
+    public Scheduler defaultSubscribeScheduler() {
+        if (defaultSubscribeScheduler == null) {
+            defaultSubscribeScheduler = Schedulers.io();
         }
-        subscriptions.clear();
-    };
-
-    public abstract void subscribe();
-
-
-
-
+        return defaultSubscribeScheduler;
+    }
 
 }

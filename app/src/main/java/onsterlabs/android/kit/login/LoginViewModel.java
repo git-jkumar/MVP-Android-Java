@@ -19,7 +19,7 @@ public class LoginViewModel extends BaseViewModel {
 
     LoginViewModel(Context ctx) {
         super(ctx);
-        mLoginAPIListener = new LoginAPIListener(application, this);
+        mLoginAPIListener = new LoginAPIListener(this);
     }
 
     public void onSubmit(LoginRequest loginRequest) {
@@ -47,7 +47,7 @@ public class LoginViewModel extends BaseViewModel {
 
     @Override
     public void onDestroy() {
-        mLoginAPIListener.unsubscribe();
+//        mLoginAPIListener.unsubscribe();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class LoginViewModel extends BaseViewModel {
 
     @Override
     public void onPause() {
-        mLoginAPIListener.unsubscribe();
+//        mLoginAPIListener.unsubscribe();
 
     }
 

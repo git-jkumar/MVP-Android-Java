@@ -2,13 +2,12 @@ package onsterlabs.android.kit.registration.API;
 
 
 import onsterlabs.android.kit.APIManager;
-import onsterlabs.android.kit.BaseApplication;
 import onsterlabs.android.kit.registration.RegisterViewModel;
 import onsterlabs.android.kit.registration.model.RegisterResponse;
 import onsterlabs.android.kit.registration.model.RegistrationRequest;
+import onsterlabs.network.RetroError;
 import onsterlabs.network.rxnetwork.APISubscriber;
 import onsterlabs.network.rxnetwork.RXEventBus;
-import onsterlabs.network.rxnetwork.RetroError;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -18,9 +17,9 @@ import rx.android.schedulers.AndroidSchedulers;
 public class RegistrationAPIListener extends APIManager{
     protected RegisterViewModel mRegisterViewModel;
     protected IRegistrationAPI mRegistrationAPI;
-    public RegistrationAPIListener(BaseApplication application, RegisterViewModel registerViewModel) {
-        super(application);
-        mRegistrationAPI = application.getServiceClient(IRegistrationAPI.class);
+    public RegistrationAPIListener(RegisterViewModel registerViewModel) {
+        super();
+        mRegistrationAPI = (IRegistrationAPI) getServiceClient(IRegistrationAPI.class);
         this.mRegisterViewModel = registerViewModel;
     }
 
@@ -28,7 +27,7 @@ public class RegistrationAPIListener extends APIManager{
     public void doRegistration(RegistrationRequest registrationRequest){
         mRegistrationAPI.doRegistration(registrationRequest)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(application.defaultSubscribeScheduler())
+                .subscribeOn(defaultSubscribeScheduler())
                 .subscribe(new APISubscriber<RegisterResponse>());
     }
 
@@ -47,8 +46,8 @@ public class RegistrationAPIListener extends APIManager{
 
     @Override
     public void subscribe() {
-        subscriptions.add(RXEventBus.getInstance().register(RetroError.class, this));
-        subscriptions.add(RXEventBus.getInstance().register(RegisterResponse.class, this));
+        RXEventBus.getInstance().register(RetroError.class, this);
+        RXEventBus.getInstance().register(RegisterResponse.class, this);
     }
 
 }
