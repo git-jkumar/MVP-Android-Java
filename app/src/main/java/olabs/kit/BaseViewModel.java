@@ -2,7 +2,7 @@ package olabs.kit;
 
 import android.content.Context;
 
-import onsterlabs.network.RetroError;
+import olabs.network.rxnetwork.RetroError;
 
 
 /**

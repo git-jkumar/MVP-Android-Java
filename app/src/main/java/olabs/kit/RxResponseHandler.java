@@ -2,7 +2,7 @@ package olabs.kit;
 
 import java.util.ArrayList;
 
-import onsterlabs.network.RetroError;
+import olabs.network.rxnetwork.RetroError;
 import rx.Subscription;
 import rx.functions.Action1;
 

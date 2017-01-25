@@ -4,9 +4,9 @@ package olabs.kit.login.APIs;
 import olabs.kit.APIManager;
 import olabs.kit.login.LoginViewModel;
 import olabs.kit.login.model.LoginResponse;
-import onsterlabs.network.RetroError;
-import onsterlabs.network.rxnetwork.APISubscriber;
-import onsterlabs.network.rxnetwork.RXEventBus;
+import olabs.network.rxnetwork.RXEventBus;
+import olabs.network.rxnetwork.RetroError;
+import olabs.network.rxnetwork.APISubscriber;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**

@@ -2,7 +2,7 @@ package olabs.kit;
 
 import java.util.HashMap;
 
-import onsterlabs.network.NetworkServiceFactory;
+import olabs.network.NetworkServiceFactory;
 import rx.Scheduler;
 import rx.schedulers.Schedulers;
 
