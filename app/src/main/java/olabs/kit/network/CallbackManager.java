@@ -63,9 +63,9 @@ public abstract class CallbackManager<T extends BaseResponse> implements Callbac
     @Override
     public void onFailure(Call call, Throwable throwable) {
          if(throwable instanceof UnknownHostException){
-            new RetroError(RetroError.Kind.NETWORK, "Unable to connect to server.", -999);
+            onError(new RetroError(RetroError.Kind.NETWORK, "Unable to connect to server.", -999));
         }else{
-             new RetroError(RetroError.Kind.UNEXPECTED, "Unexpected error...try after sometime.", -999);
+             onError(new RetroError(RetroError.Kind.UNEXPECTED, "Unexpected error...try after sometime.", -999));
         }
     }
 
