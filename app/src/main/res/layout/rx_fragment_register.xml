@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <variable name="handler" type="olabs.kit.rxmvvm.registration.RegisterViewModel"></variable>
+        <variable name="model" type="olabs.kit.model.RegistrationRequest"></variable>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+    >
+
+        <ScrollView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+        >
+            <LinearLayout
+                android:id="@+id/registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="30dp"
+            >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:inputType="text"
+                        android:text="User Id"
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp"
+                    />
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilarn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true">
+                        <EditText
+                            android:id="@+id/et_uid"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@android:color/darker_gray"
+                            android:inputType="text"
+                            android:maxLength="10"
+                            android:tag="ARN-"
+                            android:text="@={model.arnCode}"
+                        />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:inputType="text"
+                        android:text="Password"
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp"
+                    />
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_pwd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true">
+                        <EditText
+                            android:id="@+id/et_bank_acct_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@android:color/darker_gray"
+                            android:inputType="text|number"
+                            android:text="@={model.bankAccountNumber}"
+                        />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:inputType="text"
+                        android:text="Email ID"
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp"
+                    />
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true">
+                        <EditText
+                            android:id="@+id/et_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@android:color/darker_gray"
+                            android:inputType="textEmailAddress"
+                            android:text="@={model.emailAddress}"
+                        />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:inputType="text"
+                        android:text="Mobile No."
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp"
+                    />
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilmobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true">
+
+                        <EditText
+                            android:id="@+id/et_mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@android:color/darker_gray"
+                            android:inputType="text|number"
+                            android:maxLength="10"
+                            android:text="@={model.mobileNumber}"
+
+                        />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/button_submit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:background="@android:color/holo_blue_dark"
+                        android:enabled="false"
+                        android:onClick="@{()->handler.onSubmit(model)}"
+                        android:text="Submit"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/activity_vertical_margin"
+                    />
+                    <Button
+                        android:id="@+id/button_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin"
+                        android:background="@android:color/darker_gray"
+                        android:onClick="@{()->handler.onCancel()}"
+                        android:text="Cancel"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/activity_vertical_margin"
+                    />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+</layout>
