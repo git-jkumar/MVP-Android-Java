@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import olabs.kit.common.AppConstant;
-import olabs.network.rxnetwork.RetroError;
+import olabs.kit.rxnetworx.RetroError;
 
 public class BaseViewModel {
     protected IView mIView;
@@ -16,18 +16,18 @@ public class BaseViewModel {
 
     public HashMap<String, String> getHeaderConfiguration() {
         Properties localProps = new Properties();
-        HashMap<String, String> requestHeades = new HashMap<>();
+        HashMap<String, String> requestHeaders = new HashMap<>();
         try {
-
+            //API HEADERS ARE ACCESSED FROM PROPERTIES FILE IN ASSETS FOLDER.CHANGE ACCORDINGLY FOR APP USAGE
             localProps.load(BaseApplication.getContext().getAssets().open("app.properties"));
-            requestHeades.put("app-type", localProps.getProperty("app-type"));
-            requestHeades.put("Content-Type", localProps.getProperty("Content-Type"));
-            requestHeades.put(AppConstant.AUTHORIZATION, localProps.getProperty(AppConstant.AUTHORIZATION));
+            requestHeaders.put("app-type", localProps.getProperty("app-type"));
+            requestHeaders.put("Content-Type", localProps.getProperty("Content-Type"));
+            requestHeaders.put(AppConstant.AUTHORIZATION, localProps.getProperty(AppConstant.AUTHORIZATION));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return requestHeades;
+        return requestHeaders;
 
     }
 
@@ -46,17 +46,17 @@ public class BaseViewModel {
                     mIView.showMessage("Your session has expired...please login again");
                     break;
                 case 500:
-                    mIView.showMessage("ds");
+                    mIView.showMessage("Something went wrong...try after sometime");
                     break;
                 default:
-                    mIView.showMessage("ds");
+                    mIView.showMessage("Something went wrong...please try again.");
                     break;
             }
         } else if (retroError.getKind() == RetroError.Kind.NETWORK) {
-            mIView.showMessage("sdf");
+            mIView.showMessage("Unable to connect to server....try after sometime");
         }
         if (retroError.getKind() == RetroError.Kind.UNEXPECTED) {
-            mIView.showMessage("sdf");
+            mIView.showMessage("Unexpected error....try after sometime");
         }
     }
 
