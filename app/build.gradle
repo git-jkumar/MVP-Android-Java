@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    compile files('libs/rxnetwork.jar')
+    compile files('libs/rxnetworx.jar')
     Map<String, String> dependencies = rootProject.ext.dependencies;
     compile dependencies.appCompat
     compile dependencies.design
