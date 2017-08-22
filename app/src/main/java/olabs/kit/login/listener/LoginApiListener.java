@@ -1,7 +1,7 @@
 package olabs.kit.login.listener;
 
 
-import olabs.kit.common.AppConstant;
+import olabs.kit.base.Constants;
 import olabs.kit.login.LoginViewModel;
 import olabs.kit.login.api.ILoginApi;
 import olabs.kit.login.model.LoginResponse;
@@ -23,7 +23,7 @@ public class LoginApiListener extends RxCallbackManager {
     }
 
     public void doLogin(String userName,String password){
-       ILoginApi mLoginAPI = (ILoginApi) getServiceClient(AppConstant.IS_HEADER_UPDATE, ILoginApi.class);
+       ILoginApi mLoginAPI = (ILoginApi) getServiceClient(Constants.IS_HEADER_UPDATE, ILoginApi.class);
         initiateApiCall(LoginResponse.class,mLoginAPI.doLogin("password",userName,password));
 
     }

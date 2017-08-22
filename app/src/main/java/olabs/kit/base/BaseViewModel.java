@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
 
-import olabs.kit.common.AppConstant;
 import olabs.kit.rxnetworx.RetroError;
 
 public class BaseViewModel {
@@ -22,7 +21,7 @@ public class BaseViewModel {
             localProps.load(BaseApplication.getContext().getAssets().open("app.properties"));
             requestHeaders.put("app-type", localProps.getProperty("app-type"));
             requestHeaders.put("Content-Type", localProps.getProperty("Content-Type"));
-            requestHeaders.put(AppConstant.AUTHORIZATION, localProps.getProperty(AppConstant.AUTHORIZATION));
+            requestHeaders.put("Authorization", localProps.getProperty("Authorization"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,7 +31,7 @@ public class BaseViewModel {
     }
 
     public String getBaseUrl() {
-        return AppConstant.BASE_URL;
+        return Constants.BASE_URL;
     }
 
     public void onSuccess(String message) {
