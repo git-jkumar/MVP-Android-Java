@@ -26,11 +26,11 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public void onLoginSuccess() {
-        userId.set("yes");
+        userId.set("Login successful");
     }
 
     public void onLoginError() {
-        userId.set("no");
+        userId.set("Login failed");
     }
 
 

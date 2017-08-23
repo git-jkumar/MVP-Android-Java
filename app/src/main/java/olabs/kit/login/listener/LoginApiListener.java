@@ -14,10 +14,7 @@ public class LoginApiListener extends RxCallbackManager {
 
     LoginViewModel loginViewModel;
 
-
-
     public LoginApiListener(LoginViewModel loginViewModel) {
-
         super(AndroidSchedulers.mainThread(),loginViewModel.getBaseUrl(), loginViewModel.getHeaderConfiguration());
         this.loginViewModel = loginViewModel;
     }
