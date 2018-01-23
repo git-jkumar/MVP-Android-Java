@@ -119,26 +119,26 @@ public abstract class BaseActivity<T extends BaseViewModel, S extends ViewDataBi
 //    }
 
 
-    public void loadFragment(Fragment baseFragment, boolean isAdd) {
-        loadFragment(baseFragment, isAdd, null);
-    }
+//    public void loadFragment(Fragment baseFragment, boolean isAdd) {
+//        loadFragment(baseFragment, isAdd, null);
+//    }
 
-    public void loadFragment(Fragment baseFragment, boolean isAdd, View... view) {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        String backStateName = baseFragment.getClass().getSimpleName();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
-            for (View sharedElement : view) {
-                ft.addSharedElement(sharedElement, ViewCompat.getTransitionName(sharedElement));
-            }
-        }
-        if (isAdd)
-            ft.add(R.id.container, baseFragment, backStateName).addToBackStack(backStateName).commit();
-        else {
-            popBackStack();
-            ft.replace(R.id.container, baseFragment, backStateName).addToBackStack(backStateName).commit();
-        }
-    }
+//    public void loadFragment(Fragment baseFragment, boolean isAdd, View... view) {
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction ft = fragmentManager.beginTransaction();
+//        String backStateName = baseFragment.getClass().getSimpleName();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && view != null) {
+//            for (View sharedElement : view) {
+//                ft.addSharedElement(sharedElement, ViewCompat.getTransitionName(sharedElement));
+//            }
+//        }
+//        if (isAdd)
+//            ft.add(R.id.container, baseFragment, backStateName).addToBackStack(backStateName).commit();
+//        else {
+//            popBackStack();
+//            ft.replace(R.id.container, baseFragment, backStateName).addToBackStack(backStateName).commit();
+//        }
+//    }
 
 
     public void popAllBackStack(String name, boolean isInclusive) {

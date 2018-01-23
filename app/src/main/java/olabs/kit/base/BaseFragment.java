@@ -90,16 +90,16 @@ public class BaseFragment<T extends BaseViewModel, S extends ViewDataBinding> ex
             ((BaseActivity) getActivity()).popBackStack();
     }
 
-    public void loadFragment(Fragment baseFragment, boolean isAdd, View... view) {
-        if (getActivity() != null && !getActivity().isFinishing())
-            ((BaseActivity) getActivity()).loadFragment(baseFragment, isAdd, view);
-    }
-
-
-    public void loadFragment(Fragment baseFragment, boolean isAdd) {
-        if (getActivity() != null && !getActivity().isFinishing())
-            ((BaseActivity) getActivity()).loadFragment(baseFragment, isAdd);
-    }
+//    public void loadFragment(Fragment baseFragment, boolean isAdd, View... view) {
+//        if (getActivity() != null && !getActivity().isFinishing())
+//            ((BaseActivity) getActivity()).loadFragment(baseFragment, isAdd, view);
+//    }
+//
+//
+//    public void loadFragment(Fragment baseFragment, boolean isAdd) {
+//        if (getActivity() != null && !getActivity().isFinishing())
+//            ((BaseActivity) getActivity()).loadFragment(baseFragment, isAdd);
+//    }
 
 
     public void hideKeyboard(View view) {
