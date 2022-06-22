@@ -1,4 +1,4 @@
-package olabs.kit.mvp;
+package olabs.kit.mvp.core;
 
 import android.app.Activity;
 import android.content.Context;
@@ -41,6 +41,12 @@ public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public void hideProgress() {
+    }
+
+    public void showProgress() {
     }
 
 }

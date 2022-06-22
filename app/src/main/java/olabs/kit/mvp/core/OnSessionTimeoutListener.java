@@ -1,7 +1,7 @@
-package olabs.kit.mvp;
+package olabs.kit.mvp.core;
 
 /**
- * Created by ttnd on 14/12/16.
+ * Created by Jitendra Kumar on 14/12/16.
  */
 
 public interface OnSessionTimeoutListener {

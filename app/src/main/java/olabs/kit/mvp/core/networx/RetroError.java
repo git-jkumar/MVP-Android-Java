@@ -1,4 +1,4 @@
-package olabs.kit.mvp.networx;
+package olabs.kit.mvp.core.networx;
 
 import java.io.IOException;
 

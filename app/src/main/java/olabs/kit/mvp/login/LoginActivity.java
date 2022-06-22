@@ -6,9 +6,10 @@ import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 
-import olabs.kit.mvp.BaseActivity;
+import olabs.kit.mvp.core.BaseActivity;
 import olabs.kit.mvp.R;
 import olabs.kit.mvp.databinding.ActivityLoginBinding;
+import olabs.kit.mvp.login.model.LoginResponse;
 
 
 public class LoginActivity extends BaseActivity<LoginPresenter,ActivityLoginBinding> implements ILoginView {
@@ -28,4 +29,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,ActivityLoginBind
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onLoginSuccess(LoginResponse loginResponse) {
+    }
 }

@@ -1,0 +1,49 @@
+ext {
+
+    networkLayerDependencies = [
+            retrofit           : "com.squareup.retrofit2:retrofit:2.9.0",
+            retrofitConverter  : "com.squareup.retrofit2:converter-gson:2.9.0",
+            loggingInterceptor : "com.squareup.okhttp3:logging-interceptor:4.9.3",
+            httpClient         : 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    ]
+
+    androidSupportLib = [
+            appCompat          : 'androidx.appcompat:appcompat:1.2.0',
+            material           : 'com.google.android.material:material:1.3.0',
+            contraintLayout    : 'androidx.constraintlayout:constraintlayout:2.0.4',
+            legacySupport      : 'androidx.legacy:legacy-support-v4:1.0.0',
+            navFragment        : 'androidx.navigation:navigation-fragment:2.3.4',
+            navUI              : 'androidx.navigation:navigation-ui:2.3.4',
+            liveData           : 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1',
+            viewModel          : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+
+    ]
+
+    testKit = [
+            jUnit              : 'junit:junit:4.+',
+            jUnitExt           : 'androidx.test.ext:junit:1.1.2',
+            espresso           : 'androidx.test.espresso:espresso-core:3.3.0'
+    ]
+
+    imageLoader = [
+            glide              :  "com.github.bumptech.glide:glide:4.12.0",
+            glideCompiler      :  "com.github.bumptech.glide:compiler:4.12.0"
+    ]
+
+    firebase = [
+            messaging          :  "com.google.firebase:firebase-messaging:22.0.0",
+            crashlytics        :  "com.google.firebase:firebase-crashlytics:18.0.0"
+    ]
+
+    tools = [
+            mpChart            :  "com.github.PhilJay:MPAndroidChart:v3.1.0",
+            compressor         :  'id.zelory:compressor:3.0.1',
+            fontOptimizer      :  'com.hardik.hsdp:scalablesize-android:1.0.1',
+            imageSlider        :  'com.github.smarteist:autoimageslider:1.4.0',
+            //MediaPickerLibrary
+            easyImage          :  'com.github.jkwiecien:EasyImage:3.2.0',
+            tags               :  "com.splitwise:tokenautocomplete:3.0.1@aar"
+    ]
+
+//    implementation 'com.github.prolificinteractive:parallaxpager:${parallaxpagerVersion}'
+}

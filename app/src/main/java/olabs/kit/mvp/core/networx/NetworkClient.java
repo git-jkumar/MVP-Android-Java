@@ -1,9 +1,4 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
-package olabs.kit.mvp.networx;
+package olabs.kit.mvp.core.networx;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -11,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
@@ -34,32 +28,31 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
+import olabs.kit.mvp.BuildConfig;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkClient {
+    private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
+        Response originalResponse = chain.proceed(chain.request());
+        int maxStale = 2419200;
+        return originalResponse.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale).build();
+    };
     private static SSLContext mSSLContext;
     private static X509TrustManager mTrustManager;
-
-
-    private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
-        public Response intercept(Chain chain) throws IOException {
-            Response originalResponse = chain.proceed(chain.request());
-            int maxStale = 2419200;
-            return originalResponse.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale).build();
-        }
-    };
 
     private NetworkClient() {
     }
 
     public static Retrofit getRestAdapter(final String baseUrl, final HashMap<String, String> requestHeaderMap) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(Level.HEADERS);
-        interceptor.setLevel(Level.BODY);
+        if (BuildConfig.DEBUG) {
+            interceptor.setLevel(Level.HEADERS);
+            interceptor.setLevel(Level.BODY);
+        }
         Gson gson = (new GsonBuilder()).addSerializationExclusionStrategy(new ExclusionStrategy() {
             public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-                Expose expose = (Expose)fieldAttributes.getAnnotation(Expose.class);
+                Expose expose = fieldAttributes.getAnnotation(Expose.class);
                 return expose != null && !expose.serialize();
             }
 
@@ -68,7 +61,7 @@ public class NetworkClient {
             }
         }).addDeserializationExclusionStrategy(new ExclusionStrategy() {
             public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-                Expose expose = (Expose)fieldAttributes.getAnnotation(Expose.class);
+                Expose expose = fieldAttributes.getAnnotation(Expose.class);
                 return expose != null && !expose.deserialize();
             }
 
@@ -76,27 +69,30 @@ public class NetworkClient {
                 return false;
             }
         }).setLenient().create();
-        OkHttpClient client = (new Builder()).addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).addInterceptor(interceptor).addNetworkInterceptor(new Interceptor() {
-            public Response intercept(Chain chain) throws IOException {
-                Request.Builder builder = chain.request().newBuilder();
-                Set entrySet = requestHeaderMap.entrySet();
-                Iterator request = entrySet.iterator();
+        OkHttpClient client = (new Builder())
+                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+                .addInterceptor(interceptor)
+                .addInterceptor(new ConnectivityInterceptor())
+                .addNetworkInterceptor(chain -> {
+                    Request.Builder builder = chain.request().newBuilder();
+                    Set entrySet = requestHeaderMap.entrySet();
+                    Iterator request = entrySet.iterator();
 
-                while(request.hasNext()) {
-                    Entry entry = (Entry)request.next();
-                    if(entry.getValue() != null) {
-                        if(((String)entry.getValue()).isEmpty()) {
-                            builder.removeHeader((String)entry.getKey());
-                        } else {
-                            builder.addHeader((String)entry.getKey(), (String)entry.getValue());
+                    while (request.hasNext()) {
+                        Entry entry = (Entry) request.next();
+                        if (entry.getValue() != null) {
+                            if (((String) entry.getValue()).isEmpty()) {
+                                builder.removeHeader((String) entry.getKey());
+                            } else {
+                                builder.addHeader((String) entry.getKey(), (String) entry.getValue());
+                            }
                         }
                     }
-                }
 
-                Request request1 = builder.build();
-                return chain.proceed(request1);
-            }
-        }).addNetworkInterceptor(interceptor).writeTimeout(5, TimeUnit.MINUTES).readTimeout(5, TimeUnit.MINUTES).build();
+                    Request request1 = builder.build();
+                    return chain.proceed(request1);
+                })
+                .addNetworkInterceptor(interceptor).writeTimeout(5, TimeUnit.MINUTES).readTimeout(5, TimeUnit.MINUTES).build();
         return (new Retrofit.Builder()).baseUrl(baseUrl).client(client).addConverterFactory(GsonConverterFactory.create(gson)).build();
     }
 
@@ -140,8 +136,10 @@ public class NetworkClient {
             createKeyStore(inputStream);
         }
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(Level.HEADERS);
-        httpLoggingInterceptor.setLevel(Level.BODY);
+        if (BuildConfig.DEBUG) {
+            httpLoggingInterceptor.setLevel(Level.HEADERS);
+            httpLoggingInterceptor.setLevel(Level.BODY);
+        }
 
         Gson gson = new GsonBuilder().addSerializationExclusionStrategy(new ExclusionStrategy() {
             @Override
@@ -169,25 +167,20 @@ public class NetworkClient {
 
         OkHttpClient client = new Builder().
                 sslSocketFactory(mSSLContext.getSocketFactory(), mTrustManager)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request.Builder builder = chain.request().newBuilder();
-                        Set<Entry<String, String>> entrySet = requestHeaderMap.entrySet();
-                        for (Entry<String, String> entry : entrySet) {
-                            if (entry.getValue() != null) {
-                                if (entry.getValue().isEmpty())
-                                    builder.removeHeader(entry.getKey());
-                                else
-                                    builder.addHeader(entry.getKey(), entry.getValue());
-                            }
+                .addInterceptor(chain -> {
+                    Request.Builder builder = chain.request().newBuilder();
+                    Set<Entry<String, String>> entrySet = requestHeaderMap.entrySet();
+                    for (Entry<String, String> entry : entrySet) {
+                        if (entry.getValue() != null) {
+                            if (entry.getValue().isEmpty())
+                                builder.removeHeader(entry.getKey());
+                            else
+                                builder.addHeader(entry.getKey(), entry.getValue());
                         }
-
-                        Request request = builder.build();
-                        return chain.proceed(request);
                     }
 
-
+                    Request request = builder.build();
+                    return chain.proceed(request);
                 })
                 .addInterceptor(httpLoggingInterceptor).writeTimeout(30, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS)
                 .build();
@@ -199,7 +192,6 @@ public class NetworkClient {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
-
 
 
 }

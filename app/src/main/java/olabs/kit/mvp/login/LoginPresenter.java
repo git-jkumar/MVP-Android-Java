@@ -1,33 +1,33 @@
 package olabs.kit.mvp.login;
 
 
-import olabs.kit.mvp.BasePresenter;
-import olabs.kit.mvp.login.listener.LoginAPIListener;
+import olabs.kit.mvp.core.BasePresenter;
+import olabs.kit.mvp.login.API.ILoginAPI;
 import olabs.kit.mvp.login.model.LoginResponse;
 
 /**
- * Created by ttnd on 27/2/17.
+ * Created by Jitendra on 27/2/17.
  */
-public class LoginPresenter extends BasePresenter {
-    private ILoginView mLoginView;
-    private LoginAPIListener mLoginAPIListener;
+public class LoginPresenter extends BasePresenter<ILoginAPI,ILoginView> {
 
     public LoginPresenter(ILoginView loginView){
-        super(loginView);
-        mLoginView = loginView;
-        mLoginAPIListener = new LoginAPIListener(this);
+        super(ILoginAPI.class,loginView);
     }
 
     public void onLogin(String username,String password){
-        mLoginAPIListener.doLogin(username,password);
-
+        iAPI.doLogin(username,password).enqueue(this);
     }
 
-    public void onRegister(){
-        mLoginView.showMessage("To be developed by the user");
+    public void doRegister(){
+        iView.showMessage("To be developed by the user");
     }
 
-    public void onLoginSuccess(LoginResponse loginResponse) {
-        mLoginView.showMessage(loginResponse.getMessage());
+    @Override
+    protected void onSuccess(Object o) {
+        super.onSuccess(o);
+        if(o instanceof LoginResponse){
+            iView.showMessage(((LoginResponse) o).getMessage());
+            iView.onLoginSuccess((LoginResponse) o);
+        }
     }
 }

@@ -1,7 +1,7 @@
-package olabs.kit.mvp;
+package olabs.kit.mvp.core;
 
 /**
- * Created by ttnd on 24/11/16.
+ * Created by Jitendra Kumar on 24/11/16.
  */
 
 public interface OnProgressListener {

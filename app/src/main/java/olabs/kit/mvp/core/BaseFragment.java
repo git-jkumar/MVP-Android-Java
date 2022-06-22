@@ -1,4 +1,4 @@
-package olabs.kit.mvp;
+package olabs.kit.mvp.core;
 
 
 import android.content.Context;

@@ -2,7 +2,7 @@ package olabs.kit.mvp.login.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import olabs.kit.mvp.BaseRequest;
+import olabs.kit.mvp.core.BaseRequest;
 
 
 /**

@@ -1,4 +1,4 @@
-package olabs.kit.mvp;
+package olabs.kit.mvp.core;
 
 /**
  * Created by ttnd on 27/12/16.
