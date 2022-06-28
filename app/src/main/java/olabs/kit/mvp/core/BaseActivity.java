@@ -5,6 +5,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +21,19 @@ public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBi
     @NonNull
     protected S mViewDataBinding;
 
+    protected View mProgressBarView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        initViewBinding();
+        initPresenter();
+        setupViews();
     }
+
+    protected abstract void initPresenter();
+    protected abstract void initViewBinding();
+    protected abstract void setupViews();
 
     @Override
     protected void onDestroy() {
@@ -44,9 +53,15 @@ public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBi
     }
 
     public void hideProgress() {
+        mProgressBarView.setVisibility(View.GONE);
     }
 
     public void showProgress() {
+        mProgressBarView.setVisibility(View.VISIBLE);
+    }
+
+    public void showMessage(int messageStringId) {
+        Toast.makeText(this, getString(messageStringId), Toast.LENGTH_SHORT).show();
     }
 
 }

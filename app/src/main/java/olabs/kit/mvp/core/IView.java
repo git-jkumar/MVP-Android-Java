@@ -5,5 +5,7 @@ package olabs.kit.mvp.core;
  */
 
 public interface IView {
-    void showMessage(String message);
+    void showMessage(int messageStringId);
+    void showProgress();
+    void hideProgress();
 }

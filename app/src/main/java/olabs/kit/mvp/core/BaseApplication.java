@@ -1,7 +1,6 @@
 package olabs.kit.mvp.core;
 
 import android.app.Application;
-
 import olabs.kit.mvp.core.networx.WifiNetworkService;
 
 public class BaseApplication extends Application {

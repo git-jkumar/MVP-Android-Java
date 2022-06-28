@@ -6,8 +6,6 @@ import java.util.HashMap;
 
 import olabs.kit.mvp.BuildConfig;
 import olabs.kit.mvp.core.BaseResponse;
-import olabs.kit.mvp.core.networx.NetworkServiceFactory;
-import olabs.kit.mvp.core.networx.RetroError;
 import retrofit2.Callback;
 import retrofit2.Response;
 

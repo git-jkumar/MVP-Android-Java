@@ -3,6 +3,7 @@ package olabs.kit.mvp.login;
 
 import olabs.kit.mvp.core.BasePresenter;
 import olabs.kit.mvp.login.API.ILoginAPI;
+import olabs.kit.mvp.login.model.LoginRequest;
 import olabs.kit.mvp.login.model.LoginResponse;
 
 /**
@@ -14,19 +15,25 @@ public class LoginPresenter extends BasePresenter<ILoginAPI,ILoginView> {
         super(ILoginAPI.class,loginView);
     }
 
-    public void onLogin(String username,String password){
+    public void onLogin(String username, String password){
+        LoginRequest loginRequest = new LoginRequest(username,password);
+        if(loginRequest.isValidLogin(username,password) != 1) {
+            iView.showMessage(loginRequest.isValidLogin(username, password));
+            return;
+        }
+        iView.showProgress();
         iAPI.doLogin(username,password).enqueue(this);
     }
 
     public void doRegister(){
-        iView.showMessage("To be developed by the user");
+//        iView.showMessage("To be developed by the user");
     }
 
     @Override
     protected void onSuccess(Object o) {
         super.onSuccess(o);
+        iView.hideProgress();
         if(o instanceof LoginResponse){
-            iView.showMessage(((LoginResponse) o).getMessage());
             iView.onLoginSuccess((LoginResponse) o);
         }
     }
