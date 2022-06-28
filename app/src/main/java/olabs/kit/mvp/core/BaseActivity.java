@@ -3,6 +3,7 @@ package olabs.kit.mvp.core;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -35,23 +36,6 @@ public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBi
     protected abstract void initViewBinding();
     protected abstract void setupViews();
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
     public void hideProgress() {
         if(mProgressBarView == null)
             return;
@@ -68,4 +52,16 @@ public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBi
         Toast.makeText(this, getString(messageStringId), Toast.LENGTH_SHORT).show();
     }
 
+    public boolean isOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
+                return true;
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                return true;
+            return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
+        }
+        return false;
+    }
 }

@@ -41,10 +41,8 @@ public abstract class CallbackManager<T extends BaseResponse> implements Callbac
         if (response.isSuccessful()) {
             onSuccess(response.body());
         } else {
-
             try {
                 onError(new RetroError(RetroError.Kind.HTTP, response.errorBody().string(), response.code()));
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -53,10 +51,10 @@ public abstract class CallbackManager<T extends BaseResponse> implements Callbac
 
     @Override
     public void onFailure(retrofit2.Call call, Throwable throwable) {
-        if (throwable instanceof IOException) {
-            onError(new RetroError(RetroError.Kind.NETWORK, "Check your internet connection, appears to be offline.", -999));
-        } else if (throwable instanceof UnknownHostException || throwable instanceof IOException) {
+        if (throwable instanceof UnknownHostException) {
             onError(new RetroError(RetroError.Kind.NETWORK, "Unable to connect to server.", -999));
+        }else if (throwable instanceof IOException) {
+            onError(new RetroError(RetroError.Kind.NETWORK, "Check your internet connection, appears to be offline.", -999));
         } else {
             onError(new RetroError(RetroError.Kind.UNEXPECTED, "Unexpected error...try after sometime.", -999));
         }
