@@ -1,7 +1,6 @@
 package olabs.kit.mvp.core;
 
 
-import olabs.kit.mvp.R;
 import olabs.kit.mvp.core.networx.CallbackManager;
 import olabs.kit.mvp.core.networx.RetroError;
 
@@ -29,16 +28,6 @@ public class BasePresenter<A extends IBaseApi, V extends IView> extends Callback
     @Override
     protected void onError(RetroError retroError) {
         iView.hideProgress();
-        if (retroError.getHttpErrorCode() == 401 || retroError.getHttpErrorCode() == 302 || retroError.getHttpErrorCode() == 404) {
-            return;
-        }
-        if (retroError.getKind() == RetroError.Kind.HTTP) {
-            this.iView.showMessage(R.string.err_something_went_wrong);
-        } else if (retroError.getKind() == RetroError.Kind.NETWORK) {
-            this.iView.showMessage(R.string.err_network_error);
-        }
-        if (retroError.getKind() == RetroError.Kind.UNEXPECTED) {
-            this.iView.showMessage(R.string.err_unexpected_error);
-        }
+        iView.onNetworkError(retroError);
     }
 }

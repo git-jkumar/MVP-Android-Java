@@ -4,14 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
+import olabs.kit.mvp.R;
+import olabs.kit.mvp.core.networx.RetroError;
 
 
 public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBinding> extends Activity {
@@ -64,4 +64,23 @@ public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBi
         }
         return false;
     }
+
+    protected void logout(){
+    }
+
+    public void onNetworkError(RetroError retroError){
+        if (retroError.getHttpErrorCode() == 302 || retroError.getHttpErrorCode() == 404) {
+            return;
+        }
+        if (retroError.getHttpErrorCode() == 401) {
+             logout();
+        }else if (retroError.getKind() == RetroError.Kind.HTTP) {
+             showMessage(R.string.err_something_went_wrong);
+        } else if (retroError.getKind() == RetroError.Kind.NETWORK) {
+             showMessage(R.string.err_network_error);
+        }else if (retroError.getKind() == RetroError.Kind.UNEXPECTED) {
+             showMessage(R.string.err_unexpected_error);
+        }
+    }
+
 }
