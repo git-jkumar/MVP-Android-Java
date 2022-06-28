@@ -1,10 +1,7 @@
 package olabs.kit.mvp.login;
 
 
-import android.os.Bundle;
-
 import androidx.databinding.DataBindingUtil;
-
 import olabs.kit.mvp.core.BaseActivity;
 import olabs.kit.mvp.R;
 import olabs.kit.mvp.databinding.ActivityLoginBinding;
@@ -32,6 +29,5 @@ public class LoginActivity extends BaseActivity<LoginPresenter,ActivityLoginBind
 
     @Override
     public void onLoginSuccess(LoginResponse loginResponse) {
-        hideProgress();
     }
 }

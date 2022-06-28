@@ -32,7 +32,6 @@ public class LoginPresenter extends BasePresenter<ILoginAPI,ILoginView> {
     @Override
     protected void onSuccess(Object o) {
         super.onSuccess(o);
-        iView.hideProgress();
         if(o instanceof LoginResponse){
             iView.onLoginSuccess((LoginResponse) o);
         }

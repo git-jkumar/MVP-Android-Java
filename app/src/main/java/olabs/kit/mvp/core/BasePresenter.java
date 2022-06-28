@@ -23,7 +23,7 @@ public class BasePresenter<A extends IBaseApi, V extends IView> extends Callback
 
     @Override
     protected void onSuccess(Object o) {
-
+        iView.hideProgress();
     }
 
     @Override

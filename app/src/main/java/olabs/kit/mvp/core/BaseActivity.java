@@ -53,10 +53,14 @@ public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBi
     }
 
     public void hideProgress() {
+        if(mProgressBarView == null)
+            return;
         mProgressBarView.setVisibility(View.GONE);
     }
 
     public void showProgress() {
+        if(mProgressBarView == null)
+            return;
         mProgressBarView.setVisibility(View.VISIBLE);
     }
 
