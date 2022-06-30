@@ -1,11 +1,11 @@
-package olabs.kit.mvp.login;
+package olabs.kit.mvp.features.login;
 
 
 import androidx.databinding.DataBindingUtil;
-import olabs.kit.mvp.core.base.BaseActivity;
 import olabs.kit.mvp.R;
+import olabs.kit.mvp.core.base.BaseActivity;
 import olabs.kit.mvp.databinding.ActivityLoginBinding;
-import olabs.kit.mvp.login.model.LoginResponse;
+import olabs.kit.mvp.features.login.model.LoginResponse;
 
 
 public class LoginActivity extends BaseActivity<LoginPresenter,ActivityLoginBinding> implements ILoginView {

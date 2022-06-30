@@ -1,8 +1,8 @@
-package olabs.kit.mvp.login.API;
+package olabs.kit.mvp.features.login.API;
 
 
 import olabs.kit.mvp.core.base.IBaseApi;
-import olabs.kit.mvp.login.model.LoginResponse;
+import olabs.kit.mvp.features.login.model.LoginResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

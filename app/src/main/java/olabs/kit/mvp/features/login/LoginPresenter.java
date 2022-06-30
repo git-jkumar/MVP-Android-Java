@@ -1,10 +1,10 @@
-package olabs.kit.mvp.login;
+package olabs.kit.mvp.features.login;
 
 
 import olabs.kit.mvp.core.base.BasePresenter;
-import olabs.kit.mvp.login.API.ILoginAPI;
-import olabs.kit.mvp.login.model.LoginRequest;
-import olabs.kit.mvp.login.model.LoginResponse;
+import olabs.kit.mvp.features.login.API.ILoginAPI;
+import olabs.kit.mvp.features.login.model.LoginRequest;
+import olabs.kit.mvp.features.login.model.LoginResponse;
 
 /**
  * Created by Jitendra on 27/2/17.
@@ -23,10 +23,6 @@ public class LoginPresenter extends BasePresenter<ILoginAPI,ILoginView> {
         }
         iView.showProgress();
         iAPI.doLogin(username,password).enqueue(this);
-    }
-
-    public void doRegister(){
-//        iView.showMessage("To be developed by the user");
     }
 
     @Override

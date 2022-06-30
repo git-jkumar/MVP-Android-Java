@@ -1,4 +1,4 @@
-package olabs.kit.mvp.login.model;
+package olabs.kit.mvp.features.login.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
