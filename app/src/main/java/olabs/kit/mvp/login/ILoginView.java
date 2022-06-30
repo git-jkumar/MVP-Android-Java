@@ -1,7 +1,7 @@
 package olabs.kit.mvp.login;
 
 
-import olabs.kit.mvp.core.IView;
+import olabs.kit.mvp.core.base.IView;
 import olabs.kit.mvp.login.model.LoginResponse;
 
 /**

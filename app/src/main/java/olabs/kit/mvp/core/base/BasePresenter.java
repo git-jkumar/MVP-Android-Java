@@ -1,8 +1,8 @@
-package olabs.kit.mvp.core;
+package olabs.kit.mvp.core.base;
 
 
-import olabs.kit.mvp.core.networx.RemoteDataServiceCallback;
-import olabs.kit.mvp.core.networx.NetworkError;
+import olabs.kit.mvp.core.net.RemoteDataServiceCallback;
+import olabs.kit.mvp.core.net.NetworkError;
 
 /**
  * Created by Jitendra Kumar on 27/2/17.

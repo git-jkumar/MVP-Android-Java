@@ -1,4 +1,4 @@
-package olabs.kit.mvp.core;
+package olabs.kit.mvp.core.base;
 
 
 import com.google.gson.annotations.Expose;

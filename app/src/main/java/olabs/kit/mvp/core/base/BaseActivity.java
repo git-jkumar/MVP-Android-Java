@@ -1,4 +1,4 @@
-package olabs.kit.mvp.core;
+package olabs.kit.mvp.core.base;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 import olabs.kit.mvp.R;
-import olabs.kit.mvp.core.networx.NetworkError;
+import olabs.kit.mvp.core.net.NetworkError;
 
 
 public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBinding> extends Activity {

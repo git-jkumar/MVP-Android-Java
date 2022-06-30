@@ -1,6 +1,8 @@
-package olabs.kit.mvp.core;
+package olabs.kit.mvp.core.base;
 
 import android.app.Application;
+
+import olabs.kit.mvp.core.NetValidator;
 
 public class BaseApplication extends Application {
 

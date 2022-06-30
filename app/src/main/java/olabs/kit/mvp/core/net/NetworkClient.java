@@ -1,4 +1,4 @@
-package olabs.kit.mvp.core.networx;
+package olabs.kit.mvp.core.net;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

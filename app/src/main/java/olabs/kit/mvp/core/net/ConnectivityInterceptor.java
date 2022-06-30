@@ -1,4 +1,4 @@
-package olabs.kit.mvp.core.networx;
+package olabs.kit.mvp.core.net;
 
 import androidx.annotation.NonNull;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package olabs.kit.mvp.login;
 
 
-import olabs.kit.mvp.core.BasePresenter;
+import olabs.kit.mvp.core.base.BasePresenter;
 import olabs.kit.mvp.login.API.ILoginAPI;
 import olabs.kit.mvp.login.model.LoginRequest;
 import olabs.kit.mvp.login.model.LoginResponse;
