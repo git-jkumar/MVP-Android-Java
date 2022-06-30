@@ -1,7 +1,5 @@
 package olabs.kit.mvp.login.model;
 
-import android.content.Context;
-
 import com.google.gson.annotations.SerializedName;
 
 import olabs.kit.mvp.R;

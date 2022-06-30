@@ -1,14 +1,14 @@
 package olabs.kit.mvp.core;
 
 
-import olabs.kit.mvp.core.networx.CallbackManager;
-import olabs.kit.mvp.core.networx.RetroError;
+import olabs.kit.mvp.core.networx.RemoteDataServiceCallback;
+import olabs.kit.mvp.core.networx.NetworkError;
 
 /**
  * Created by Jitendra Kumar on 27/2/17.
  */
-public class BasePresenter<A extends IBaseApi, V extends IView> extends CallbackManager {
-    protected V iView;
+public class BasePresenter<A extends IBaseApi, V extends IView> extends RemoteDataServiceCallback {
+    protected final V iView;
     protected A iAPI;
 
     public BasePresenter(Class api, IView iView) {
@@ -26,8 +26,8 @@ public class BasePresenter<A extends IBaseApi, V extends IView> extends Callback
     }
 
     @Override
-    protected void onError(RetroError retroError) {
+    protected void onError(NetworkError networkError) {
         iView.hideProgress();
-        iView.onNetworkError(retroError);
+        iView.onNetworkError(networkError);
     }
 }

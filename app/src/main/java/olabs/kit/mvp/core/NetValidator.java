@@ -1,29 +1,29 @@
-package olabs.kit.mvp.core.networx;
+package olabs.kit.mvp.core;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.wifi.WifiManager;
 
-public class WifiNetworkService {
-    private static WifiNetworkService wifiNetworkService;
+public class NetValidator {
+    private static NetValidator netValidator;
     WifiManager wifiManager;
     ConnectivityManager connectivityManager;
 
-    private WifiNetworkService() {
+    private NetValidator() {
 
     }
 
-    public static WifiNetworkService getInstance() {
-        if (wifiNetworkService == null) {
-            wifiNetworkService = new WifiNetworkService();
+    public static NetValidator getInstance() {
+        if (netValidator == null) {
+            netValidator = new NetValidator();
         }
-        return wifiNetworkService;
+        return netValidator;
 
     }
 
     public void initializeWithApplicationContext(Context context) {
-        wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 

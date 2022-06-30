@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 import olabs.kit.mvp.R;
-import olabs.kit.mvp.core.networx.RetroError;
+import olabs.kit.mvp.core.networx.NetworkError;
 
 
 public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBinding> extends Activity {
@@ -68,17 +68,17 @@ public abstract class BaseActivity<T extends BasePresenter, S extends ViewDataBi
     protected void logout(){
     }
 
-    public void onNetworkError(RetroError retroError){
-        if (retroError.getHttpErrorCode() == 302 || retroError.getHttpErrorCode() == 404) {
+    public void onNetworkError(NetworkError networkError){
+        if (networkError.getHttpErrorCode() == 302 || networkError.getHttpErrorCode() == 404) {
             return;
         }
-        if (retroError.getHttpErrorCode() == 401) {
+        if (networkError.getHttpErrorCode() == 401) {
              logout();
-        }else if (retroError.getKind() == RetroError.Kind.HTTP) {
+        }else if (networkError.getKind() == NetworkError.Kind.HTTP) {
              showMessage(R.string.err_something_went_wrong);
-        } else if (retroError.getKind() == RetroError.Kind.NETWORK) {
+        } else if (networkError.getKind() == NetworkError.Kind.NETWORK) {
              showMessage(R.string.err_network_error);
-        }else if (retroError.getKind() == RetroError.Kind.UNEXPECTED) {
+        }else if (networkError.getKind() == NetworkError.Kind.UNEXPECTED) {
              showMessage(R.string.err_unexpected_error);
         }
     }

@@ -2,13 +2,13 @@ package olabs.kit.mvp.core.networx;
 
 import java.io.IOException;
 
-public class RetroError {
+public class NetworkError {
 
     private final int httpErrorCode;
     private String errorMessage;
     private final Kind kind;
 
-    public RetroError(Kind kind, String errorMessage, int httpErrorCode) {
+    public NetworkError(Kind kind, String errorMessage, int httpErrorCode) {
         this.httpErrorCode = httpErrorCode;
         this.kind = kind;
         this.errorMessage = errorMessage;

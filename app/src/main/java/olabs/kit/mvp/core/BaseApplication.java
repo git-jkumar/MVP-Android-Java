@@ -1,7 +1,6 @@
 package olabs.kit.mvp.core;
 
 import android.app.Application;
-import olabs.kit.mvp.core.networx.WifiNetworkService;
 
 public class BaseApplication extends Application {
 
@@ -12,6 +11,6 @@ public class BaseApplication extends Application {
 
     }
     private void setupServices() {
-        WifiNetworkService.getInstance().initializeWithApplicationContext(this);
+        NetValidator.getInstance().initializeWithApplicationContext(this);
     }
 }
